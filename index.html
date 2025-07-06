@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zahid's Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1a1a2e 100%);
+      min-height: 100vh;
+      color: #00ffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background grid */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: grid-move 20s linear infinite;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    @keyframes grid-move {
+      0% {
+        transform: translate(0, 0);
+      }
+
+      100% {
+        transform: translate(50px, 50px);
+      }
+    }
+
+    /* Glowing particles */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: #00ffff;
+      border-radius: 50%;
+      animation: float-particle 8s infinite linear;
+      box-shadow: 0 0 6px #00ffff;
+    }
+
+    @keyframes float-particle {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    header {
+      text-align: center;
+      padding: 60px 0 40px;
+      position: relative;
+    }
+
+    h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow:
+        0 0 10px #00ffff,
+        0 0 20px #00ffff,
+        0 0 30px #00ffff,
+        0 0 40px #00ffff;
+      color: #ffffff;
+      letter-spacing: 3px;
+      animation: pulse-glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes pulse-glow {
+      from {
+        text-shadow:
+          0 0 10px #00ffff,
+          0 0 20px #00ffff,
+          0 0 30px #00ffff,
+          0 0 40px #00ffff;
+      }
+
+      to {
+        text-shadow:
+          0 0 20px #00ffff,
+          0 0 30px #00ffff,
+          0 0 40px #00ffff,
+          0 0 50px #00ffff;
+      }
+    }
+
+    .subtitle {
+      font-size: 1.3rem;
+      color: #ff6b6b;
+      margin-bottom: 30px;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6b6b, #00ffff, #ff6b6b);
+      margin: 0 auto;
+      border-radius: 2px;
+      animation: divider-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes divider-pulse {
+
+      0%,
+      100% {
+        transform: scaleX(1);
+      }
+
+      50% {
+        transform: scaleX(1.2);
+      }
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 40px 0;
+    }
+
+    .portfolio-card {
+      background: linear-gradient(145deg, rgba(26, 26, 46, 0.8), rgba(15, 52, 96, 0.6));
+      border: 2px solid transparent;
+      border-radius: 16px;
+      padding: 25px;
+      text-decoration: none;
+      color: #ffffff;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .portfolio-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, #00ffff, #ff6b6b, #00ffff);
+      z-index: -1;
+      transition: opacity 0.4s ease;
+      opacity: 0;
+    }
+
+    .portfolio-card:hover::before {
+      opacity: 1;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow:
+        0 20px 40px rgba(0, 255, 255, 0.3),
+        0 0 20px rgba(255, 107, 107, 0.2);
+      border-color: #00ffff;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 1;
+      background: linear-gradient(145deg, rgba(26, 26, 46, 0.95), rgba(15, 52, 96, 0.9));
+      border-radius: 12px;
+      padding: 20px;
+      margin: -20px;
+    }
+
+    .card-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.6s ease;
+    }
+
+    .portfolio-card:hover .card-icon::before {
+      left: 100%;
+    }
+
+    .portfolio-card:hover .card-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .card-icon-1 {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+      box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+    }
+
+    .card-icon-2 {
+      background: linear-gradient(135deg, #00ffff, #4ecdc4);
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    }
+
+    .card-icon-3 {
+      background: linear-gradient(135deg, #ffd93d, #ff6b6b);
+      box-shadow: 0 0 20px rgba(255, 217, 61, 0.5);
+    }
+
+    .card-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #00ffff;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .card-description {
+      color: #cccccc;
+      margin-bottom: 20px;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .card-link {
+      display: flex;
+      align-items: center;
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+    }
+
+    .portfolio-card:hover .card-link {
+      color: #00ffff;
+    }
+
+    .arrow {
+      margin-left: 10px;
+      transition: transform 0.3s ease;
+      font-size: 1.2rem;
+    }
+
+    .portfolio-card:hover .arrow {
+      transform: translateX(8px);
+    }
+
+    .level-indicator {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 255, 255, 0.2);
+      color: #00ffff;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1px solid #00ffff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 0;
+      color: #888;
+      font-family: 'Orbitron', monospace;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+      }
+
+      .subtitle {
+        font-size: 1rem;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 20px 0;
+      }
+
+      .portfolio-card {
+        padding: 20px;
+      }
+
+      header {
+        padding: 40px 0 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+        letter-spacing: 1px;
+      }
+
+      .container {
+        padding: 0 15px;
+      }
+
+      .portfolio-card {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <header>
+      <h1>ZAHID'S PORTFOLIOS</h1>
+      <p class="subtitle">Level Up Your Digital Experience With ME</p>
+      <div class="divider"></div>
+    </header>
+
+    <main>
+      <div class="portfolio-grid">
+        <a href="./harpercarrollai/index.html" class="portfolio-card">
+          <div class="level-indicator">LVL 1</div>
+          <div class="card-content">
+            <div class="card-icon card-icon-1">
+              🎮
+            </div>
+            <h3 class="card-title">Harper Carroll Ai</h3>
+            <p class="card-description">
+              A creative landing page of a Machine Learning AI Tutor with amazingly simple and elegant way
+            </p>
+            <div class="card-link">
+              View Here <span class="arrow">▶</span>
+            </div>
+          </div>
+        </a>
+
+        <a href="./index.html" class="portfolio-card">
+          <div class="level-indicator">LVL 2</div>
+          <div class="card-content">
+            <div class="card-icon card-icon-2">
+              ⚡
+            </div>
+            <h3 class="card-title">Portfolio Coming Soon</h3>
+            <p class="card-description">
+              Stunning AI chatbot
+            </p>
+            <div class="card-link">
+              Enter Game <span class="arrow">▶</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; <span id="currentYear"></span> <a href="https://www.linkedin.com/in/zahidensari/">Zahid's</a> Portfolio
+        Hub. Ready Set Hire.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Get current year dynamically
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // Create floating particles
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+
+      for (let i = 0; i < 50; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 8 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 5) + 's';
+        particlesContainer.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    window.addEventListener('load', createParticles);
+  </script>
+</body>
+
+</html>
